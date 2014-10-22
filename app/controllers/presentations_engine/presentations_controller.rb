@@ -48,7 +48,7 @@ module PresentationsEngine
     end
 
     def presentation_params
-      params.require(:presentations).permit(:title, :description,
+      params.require(:presentation).permit(:title, :description,
         :user_id, :date)
     end
   end
