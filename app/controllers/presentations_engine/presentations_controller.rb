@@ -26,7 +26,7 @@ module PresentationsEngine
     def create
       @presentation = Presentation.new(presentation_params)
       if @presentation.save
-        redirect_to @presentation, notice:
+        redirect_to presentation_url, notice:
           'presentation was successfully created.'
       else
         render 'new'
@@ -43,7 +43,7 @@ module PresentationsEngine
 
     def destroy
       @presentation.destroy
-      redirect_to levels_url, notice: 'presentation was successfully destroyed.'
+      redirect_to presentation_url, notice: 'presentation was successfully destroyed.'
     end
 
     private
