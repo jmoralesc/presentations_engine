@@ -6,7 +6,7 @@ module PresentationsEngine
 
     def index
       @presentations = if params[:search]
-        Presentation.where("date ILIKE ?", "%#{params[:search]}%")
+        Presentation.where("date = ?", params[:search].to_date)
         .order('date')
       else
         Presentation.all
