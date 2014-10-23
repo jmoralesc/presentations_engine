@@ -5,7 +5,12 @@ module PresentationsEngine
     before_action :find_presentation, only: [:show, :edit, :update, :destroy]
 
     def index
-      @presentations = Presentation.all
+      @presentations = if params[:search]
+        Presentation.where("date ILIKE ?", "%#{params[:search]}%")
+        .order('date')
+      else
+        Presentation.all
+      end
     end
 
     def show
