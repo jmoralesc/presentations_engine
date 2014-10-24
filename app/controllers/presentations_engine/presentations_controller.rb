@@ -5,9 +5,11 @@ module PresentationsEngine
     before_action :find_presentation, only: [:show, :edit, :update, :destroy]
 
     def index
-      @presentations = if params[:search]
-        Presentation.where("date = ?", params[:search].to_date)
+      @presentations = if params[:filter]
+        Presentation.where("date = ?", params[:filter].to_date)
         .order('date')
+      elsif params[:search]
+        Presentation.where("title ILIKE ?", "%#{params[:search]}%")
       else
         Presentation.all
       end
@@ -27,7 +29,7 @@ module PresentationsEngine
       @presentation = Presentation.new(presentation_params)
       if @presentation.save
         redirect_to presentations_url, notice:
-          'presentation was successfully created.'
+          'Presentation was successfully created.'
       else
         render 'new'
       end
